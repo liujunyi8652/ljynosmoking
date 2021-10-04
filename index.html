@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>
+		Timer
+	</title>
+</head>
+<script type="text/javascript">
+	function nowTimer(){
+		var today=new Date();
+		M=today.getMonth()+1;                 //月份
+		d=today.getDate();                    //日
+		h=today.getHours();                   //小时
+		m=today.getMinutes();                 //分
+		s=today.getSeconds();                 //秒
+		q=Math.floor((today.getMonth()+3)/3); //季度
+		S=today.getMilliseconds();             //毫秒
+		// var now=new Date();
+		// var h=now.getHours();
+		// var m=now.getMinutes();
+		// var s=now.getSeconds();
+		var tnow=document.getElementById("01");
+		//tnow.innerHTML=h+':'+m+':'+s;
+		//tnow.innerHTML=today.getTime();
+		tnow.innerHTML=today.format("yyyy-MM-dd hh:mm:ss");
+		t=setTimeout(function(){nowTimer()},500);//刷新频率
+		return today.getTime();
+	}
+
+	function setDate(){
+		var setdate=new Date('2021,10,3 23:24:42');
+		var set=document.getElementById("11");
+		set.innerHTML=setdate.format("yyyy-MM-dd hh:mm:ss");
+		t=setTimeout(function(){setDate()},500);
+		return setdate.getTime();
+	}
+
+	Date.prototype.format = function(fmt){
+		var o = {
+		"M+" : this.getMonth()+1,                 //月份
+		"d+" : this.getDate(),                    //日
+		"h+" : this.getHours(),                   //小时
+		"m+" : this.getMinutes(),                 //分
+		"s+" : this.getSeconds(),                 //秒
+		"q+" : Math.floor((this.getMonth()+3)/3), //季度
+		"S"  : this.getMilliseconds()             //毫秒
+		};
+
+		if(/(y+)/.test(fmt)){
+		fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+		}
+			
+		for(var k in o){
+		if(new RegExp("("+ k +")").test(fmt)){
+			fmt = fmt.replace(
+			RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));  
+		}       
+		}
+
+		return fmt;
+		}
+
+		function countTime(){
+			var timer=nowTimer()-setDate();
+			var d=timer/1000/60/60/24;
+			var h=(timer-Math.floor(d)*1000*60*60*24)/1000/60/60;
+			var m=(timer-Math.floor(d)*1000*60*60*24-Math.floor(h)*1000*60*60)/1000/60;
+			var s=(timer-Math.floor(d)*1000*60*60*24-Math.floor(h)*1000*60*60-Math.floor(m)*1000*60)/1000;
+			var time=document.getElementById("21");
+			time.innerHTML=Math.floor(d)+"天"+Math.floor(h)+"小时"+Math.floor(m)+"分钟"+Math.floor(s)+"秒";
+			t =setTimeout(function(){countTime()},500);
+			if(d>=365){
+				cnmsg.innerHTML="不就是戒烟吗？区区一两寸的事，完全小儿科。";
+				enmsg.innerHTML="I DID IT! IT IS NOT REALLY DIFFICULT!";
+			}else if(d>=300){
+				cnmsg.innerHTML="戒烟300天留念！";
+				enmsg.innerHTML="ONCE I WAS A SMOKER!";
+			}else if(d>=100){
+				cnmsg.innerHTML="戒烟100天留念！";
+				enmsg.innerHTML="I HATE YOU FUCKING CIGARETTES";
+			}else if(d>=30){
+				cnmsg.innerHTML="我果然没有看错你，你戒烟的几率远大于其他任何人！";
+				enmsg.innerHTML="KEEP TO SAYING “FUCK YOU!” TO CIGARETTE!“YES! YES! F-U-C-K-Y-O-U!!!”";
+			}else if(d>=15){
+				cnmsg.innerHTML="有志者事竟成破釜沉舟百二秦关终属楚苦心人天不负卧薪尝胆三千越甲可吞吴";
+				enmsg.innerHTML="YOU ARE CLOSING TO THE FUCKING HEALH!KEEP GOING!";
+			}else if(d>=7){
+				cnmsg.innerHTML="7天了7天了7天了,远离香烟拥抱爱！！！";
+				enmsg.innerHTML="NO SMOKING!";
+			}else if(d>=3){
+				cnmsg.innerHTML="已经三天没有接触尼古丁了，我们的目标是7天！";
+				enmsg.innerHTML="OMG!WHAT A GREAT MAN WHO KEEP RUNNING!RESPECT!";
+			}else if(d>=1){
+				cnmsg.innerHTML="你正在远离尼古丁，保持下去！";
+				enmsg.innerHTML="THAT IS FUCKING GREAT THING ALRIGHT?KEEP GOING!";
+			}else{
+				cnmsg.innerHTML="不错的开始！";
+				enmsg.innerHTML="NICE START!";
+			}
+
+		}
+</script>
+<style>
+	p.enm
+	{
+		font: 16px Comic Sans MS ;
+	}
+	div.tb
+	{
+		background-color: aquamarine;
+		width:fit-content;
+		vertical-align: bottom;
+	}
+	div.Msgs
+	{
+		background-color: aquamarine;
+		width:fit-content;
+	}
+
+</style>
+
+<body onload="countTime();">
+	<div class="tb">
+		<table border="1">
+		<tr>
+			<td>
+				<div id="00" >现在是：</div>
+			</td>
+			<td>
+				<div id="01" >你好</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="10" >你最后一支烟是：</div>
+			</td>
+			<td>
+				<div id="11" >你好</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="20" >你已经这么久没有抽烟了：</div>
+			</td>
+			<td>
+				<div id="21" >你好</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+	
+	<div class="Msgs">
+		<p class="enm" id="enmsg"></p>
+		<p class="cnm" id="cnmsg"></p>
+	</div>
+</body>
+</html>
