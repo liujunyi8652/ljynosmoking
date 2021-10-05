@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>
+		今天也别抽烟了吧？
+	</title>
+</head>
+<script type="text/javascript">
+	function nowTimer(){
+		var today=new Date();
+		M=today.getMonth()+1;                 //月份
+		d=today.getDate();                    //日
+		h=today.getHours();                   //小时
+		m=today.getMinutes();                 //分
+		s=today.getSeconds();                 //秒
+		q=Math.floor((today.getMonth()+3)/3); //季度
+		S=today.getMilliseconds();             //毫秒
+		var tnow=document.getElementById("01");
+		tnow.innerHTML=today.format("yyyy-MM-dd hh:mm:ss");
+		t=setTimeout(function(){nowTimer()},500);//刷新频率
+		return today.getTime();
+	}
+
+	function setDate(){
+		var setdate=new Date('2021,10,3 23:24:42');
+		var set=document.getElementById("11");
+		set.innerHTML=setdate.format("yyyy-MM-dd hh:mm:ss");
+		t=setTimeout(function(){setDate()},500);
+		return setdate.getTime();
+	}
+
+	Date.prototype.format = function(fmt){
+		var o = {
+		"M+" : this.getMonth()+1,                 //月份
+		"d+" : this.getDate(),                    //日
+		"h+" : this.getHours(),                   //小时
+		"m+" : this.getMinutes(),                 //分
+		"s+" : this.getSeconds(),                 //秒
+		"q+" : Math.floor((this.getMonth()+3)/3), //季度
+		"S"  : this.getMilliseconds()             //毫秒
+		};
+
+		if(/(y+)/.test(fmt)){
+		fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+		}
+			
+		for(var k in o){
+		if(new RegExp("("+ k +")").test(fmt)){
+			fmt = fmt.replace(
+			RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));  
+		}       
+		}
+
+		return fmt;
+		}
+
+		function countTime(){
+			var timer=nowTimer()-setDate();
+			var d=timer/1000/60/60/24;
+			var h=(timer-Math.floor(d)*1000*60*60*24)/1000/60/60;
+			var m=(timer-Math.floor(d)*1000*60*60*24-Math.floor(h)*1000*60*60)/1000/60;
+			var s=(timer-Math.floor(d)*1000*60*60*24-Math.floor(h)*1000*60*60-Math.floor(m)*1000*60)/1000;
+			var time=document.getElementById("21");
+			time.innerHTML=Math.floor(d)+"天"+Math.floor(h)+"小时"+Math.floor(m)+"分钟"+Math.floor(s)+"秒";
+			t =setTimeout(function(){countTime()},500);
+			if(d>=365){
+				cnmsg.innerHTML="不就是戒烟吗？区区一两寸的事，完全小儿科。";
+				enmsg.innerHTML="I DID IT! IT IS NOT REALLY DIFFICULT!";
+			}else if(d>=300){
+				cnmsg.innerHTML="戒烟300天留念！";
+				enmsg.innerHTML="ONCE I WAS A SMOKER!";
+			}else if(d>=100){
+				cnmsg.innerHTML="戒烟100天留念！";
+				enmsg.innerHTML="I HATE YOU FUCKING CIGARETTES";
+			}else if(d>=30){
+				cnmsg.innerHTML="我果然没有看错你，你戒烟的几率远大于其他任何人！";
+				enmsg.innerHTML="KEEP TO SAYING “FUCK YOU!” TO CIGARETTE!“YES! YES! F-U-C-K-Y-O-U!!!”";
+			}else if(d>=15){
+				cnmsg.innerHTML="有志者事竟成破釜沉舟百二秦关终属楚苦心人天不负卧薪尝胆三千越甲可吞吴";
+				enmsg.innerHTML="YOU ARE CLOSING TO THE FUCKING HEALH!KEEP GOING!";
+			}else if(d>=7){
+				cnmsg.innerHTML="这简直太他娘的爽了，你也这么觉得对吗？7天了7天了7天了,远离香烟拥抱爱！！！";
+				enmsg.innerHTML="NO SMOKING!";
+			}else if(d>=3){
+				cnmsg.innerHTML="我他妈简直不敢相信，已经三天没有接触尼古丁了，我们的目标是7天！";
+				enmsg.innerHTML="OMG!WHAT A GREAT MAN WHO KEEP RUNNING!RESPECT!";
+			}else if(d>=1){
+				cnmsg.innerHTML="哦我的天呐，你正在远离尼古丁，保持下去！";
+				enmsg.innerHTML="THAT IS A FUCKING GREAT THING ALRIGHT?KEEP GOING!";
+			}else{
+				cnmsg.innerHTML="不错的开始！";
+				enmsg.innerHTML="NICE START!";
+			}
+
+		}
+		function mysearch(){
+			var keyCode=event.keyCode;
+			var txt=document.getElementById("search-inbox").value;
+			var resultStr = txt.split(' ').join('+');
+			var url="https://www.google.com/search?q="+resultStr;
+			//alert("你按下了"+event.keyCode+"键"+resultStr);//测试
+			if(keyCode==13){
+				//window.open("https://www.google.com/search?q="+resultStr,"_self");
+				window.open(url);
+			}
+		}
+</script>
+<style>
+	p.enm
+	{
+		font: 20px Comic Sans MS ;
+	}
+	div.tb
+	{
+		font: 20px Comic Sans MS;
+		background-color:aquamarine;
+		width:fit-content;float: right;
+	}
+	div.Msgs
+	{
+		font: 20px Comic Sans MS;
+		background-color:aquamarine;
+		width:fit-content;align-items: center;
+	}
+
+</style>
+
+<body onload="countTime();">
+	<div style="float: left;">
+		<div>
+			<img src="./img/img0.jpg" width="300" height="400">
+		</div>
+		<!-- <form id="form1">
+			<span>
+				<input type="text" name="search" style="height: 30px;" >			
+			</span>
+			<span>
+				<button type="button" style="background-color: aqua;height: 36px;" onclick="mysearch();">click me to start</button>	
+			</span>	
+		</form> -->
+		<form class="mysearch" style="width: max-content;">
+			<button type="button" class="search-btn" style="float: left;width: 40px;height: 40px;">
+				<img draggable="false" class="search-img" src="./img/logo.jpg" style="float: left;width: 40px;height: 40px;"  alt="">
+			</button>
+			<div class="search-input-box" style="float: right;">
+				<input onkeydown="mysearch();" name="q" id="search-inbox" class="search" type="text" style="width: auto;height: 40px;" placeholder="input sth to search">
+			</div>
+			</button>
+		  </form>
+	</div>
+	<div class="tb" style="float: right;">
+		<table border="1" >
+		<tr>
+			<td>
+				<div id="00" >现在是：</div>
+			</td>
+			<td>
+				<div id="01" >你好</div>
+			</td>
+			<td rowspan="3">
+				<div id="02"><img src="./img/img1.jpg" width="90px" height="120px" ></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="10" >你最后一支烟是：</div>
+			</td>
+			<td>
+				<div id="11" >你好</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="20" >距离最后一次抽烟已经：</div>
+			</td>
+			<td>
+				<div id="21" >你好</div>
+			</td>
+		</tr>
+	</table>
+	<div class="Msgs">
+		<p>你不是烟瘾犯了，你只是无聊而已。妈的滚去学习。</p>
+		<p class="enm" id="enmsg"></p>
+		<p class="cnm" id="cnmsg"></p>
+	</div>
+	</div>
+	
+</body>
+</html>
